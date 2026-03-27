@@ -1,29 +1,53 @@
-// src/hooks/useAuth.ts
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { fetchApi } from '@/services/api';
+'use client';
+
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
+import { fetchApi } from '@/services/api';
 import { User, ApiResponse } from '@/types/auth';
 
 export function useAuth() {
-  const { setUser, isAuthenticated } = useAuthStore();
-
-  const query = useQuery({
-    queryKey: ['me'],
-    queryFn: () => fetchApi<ApiResponse<User>>('/auth/me'),
-    retry: false,
-    staleTime: Infinity,
-  });
+  const { user, setUser, logout } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (query.data?.success) {
-      setUser(query.data.data);
-    }
-  }, [query.data, setUser]);
+    let isMounted = true;
+
+    const verifyAuth = async () => {
+      try {
+        const response = await fetchApi<ApiResponse<User>>('/auth/me');
+        if (isMounted) {
+          if (response.success && response.data) {
+            setUser(response.data);
+          } else {
+            logout();
+          }
+        }
+      } catch (error) {
+        // 🔥 L'ANTIDOTE AU ZOMBIE TOKEN 🔥
+        if (isMounted) {
+          console.error("Session invalide ou expirée:", error);
+          logout();
+          
+          // Au lieu de tourner en boucle, on l'envoie vers la route "Tue-Cookie"
+          window.location.href = '/logout';
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    verifyAuth();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [setUser, logout]);
 
   return {
-    isLoading: query.isLoading,
-    user: query.data?.data,
-    isAuthenticated: !!query.data?.success || isAuthenticated,
+    user,
+    isAuthenticated: !!user,
+    isLoading,
   };
 }

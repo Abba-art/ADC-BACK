@@ -3,8 +3,10 @@ import './globals.css';
 import QueryProvider from '@/profiders/QueryProvider';
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { Toaster } from '@/components/ui/sonner'; 
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'IUG - Planning',
@@ -20,8 +22,11 @@ export default function RootLayout({
     <html lang="fr" className={cn("font-sans", geist.variable)}>
       <body className="bg-gray-50 text-gray-900 antialiased">
         <QueryProvider>
-          {children}
+          <TooltipProvider delay={300}>
+            {children}
+          </TooltipProvider>
         </QueryProvider>
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

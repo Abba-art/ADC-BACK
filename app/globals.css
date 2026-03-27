@@ -4,20 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Configuration des couleurs globales Tailwind v4 */
-@theme {
-  --color-iug-green: #2E7D32;  /* Vert ESG */
-  --color-iug-orange: #F58220; /* Orange ISTA */
-  --color-iug-blue: #1DA1F2;   /* Bleu ISA */
-  --color-iug-dark: #222222;   /* Texte principal */
-  --color-iug-bg: #F8FAFC;     /* Fond global */
-}
-
-/* Le reste de tes styles personnalisés s'il y en a... */
-body {
-  background-color: var(--color-iug-bg);
-  color: var(--color-iug-dark);
-}
+/* On a supprimé le bloc @theme personnalisé avec iug-green, etc. */
 
 @theme inline {
   --font-heading: var(--font-sans);
@@ -53,6 +40,8 @@ body {
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  
+  /* Arrondis légèrement plus doux pour un look moderne */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -63,51 +52,62 @@ body {
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  /* THEME CLAIR (Inspiré Propulse + IUG) */
+  --background: oklch(0.985 0.005 250); /* Gris très très clair, presque blanc (comme Propulse) */
+  --foreground: oklch(0.145 0 0); /* Texte presque noir */
+  
+  --card: oklch(1 0 0); /* Cartes parfaitement blanches */
   --card-foreground: oklch(0.145 0 0);
+  
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  
+  /* PRIMARY : Le vert sombre de l'ESG (IUG) pour les boutons principaux */
+  --primary: oklch(0.45 0.12 145); /* #2E7D32 adapté en oklch */
+  --primary-foreground: oklch(0.985 0 0); /* Texte blanc sur fond primaire */
+  
+  /* SECONDARY : L'orange de l'ISTA pour les accents et les halos */
+  --secondary: oklch(0.65 0.18 55); /* #F58220 adapté en oklch */
+  --secondary-foreground: oklch(0.985 0 0);
+  
+  --muted: oklch(0.96 0.01 250); /* Fond grisé pour les inputs inactifs */
+  --muted-foreground: oklch(0.556 0 0); /* Texte gris secondaire */
+  
+  --accent: oklch(0.96 0.01 250); /* Hover des boutons "ghost" */
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
+  
+  --destructive: oklch(0.577 0.245 27.325); /* Rouge standard */
+  --destructive-foreground: oklch(0.985 0 0);
+  
+  --border: oklch(0.92 0.01 250); /* Bordures très douces */
+  --input: oklch(0.92 0.01 250);
+  --ring: oklch(0.45 0.12 145); /* L'anneau de focus prend la couleur primaire (Vert IUG) */
+  
+  --radius: 0.75rem; /* Un radius de 12px pour un look SaaS moderne */
+  
+  /* SIDEBAR (On la mettra en blanc ou très clair dans le layout) */
+  --sidebar: oklch(0.985 0.005 250);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: oklch(0.45 0.12 145);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.95 0.01 250);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-border: oklch(0.92 0.01 250);
+  --sidebar-ring: oklch(0.45 0.12 145);
 }
 
 .dark {
+  /* THEME SOMBRE (Au cas où tu l'actives un jour) */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.55 0.15 145); /* Vert IUG un peu plus clair pour le dark mode */
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.70 0.20 55); /* Orange IUG plus vif */
+  --secondary-foreground: oklch(0.145 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
@@ -115,20 +115,16 @@ body {
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --ring: oklch(0.55 0.15 145);
+  
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.55 0.15 145);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.55 0.15 145);
 }
 
 @layer base {

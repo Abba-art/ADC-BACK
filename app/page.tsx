@@ -11,18 +11,17 @@ export default function RootPage() {
 
   useEffect(() => {
     if (!isLoading) {
-      if (!isAuthenticated) {
-        // Renvoie au vigile
-        router.replace('/login');
-      } else if (user) {
-        // Redirection vers le bon groupe Root selon le statut
-        const role = typeof user.role === 'object' ? user.role.libelle : user.role;
+      if (!isAuthenticated || !user) {
+        // Si l'utilisateur n'est pas authentifié ou si le compte n'existe plus (Zombie token)
+        router.replace('/auth/login');
+      } else {
+        const role = typeof user.role === 'object' && user.role !== null ? user.role.libelle : user.role;
         
         switch (role) {
           case 'ADMIN':
-          case 'CHEF_ETABLISSEMENT':
             router.replace('/admin/dashboard');
             break;
+          case 'CHEF_ETABLISSEMENT':
           case 'CHEF_DEPARTEMENT':
             router.replace('/chef/dashboard');
             break;
@@ -30,16 +29,14 @@ export default function RootPage() {
             router.replace('/professeur/dashboard');
             break;
           default:
-            // Par sécurité, s'il y a un bug de rôle
-            router.replace('/login');
+            router.replace('/auth/login');
         }
       }
     }
   }, [isLoading, isAuthenticated, user, router]);
 
-  // On affiche le beau loader IUG pendant que le hook interroge le backend
   return (
-    <div className="flex min-h-screen items-center justify-center bg-iug-bg">
+    <div className="flex min-h-screen items-center justify-center bg-background">
       <IUGLoader size={250} />
     </div>
   );
