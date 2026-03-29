@@ -131,9 +131,6 @@ export default function ProfesseurDashboard() {
           </h1>
           <p className="text-sm font-medium text-muted-foreground mt-1">Bienvenue, <span className="font-bold text-foreground">{profil.nom} {profil.prenom}</span>.</p>
         </div>
-        <Button onClick={handlePrint} variant="outline" className="print:hidden rounded-xl font-bold bg-primary/10 text-primary hover:bg-primary hover:text-white border-transparent transition-all">
-          <Printer className="w-4 h-4 mr-2" /> Exporter PDF / Imprimer
-        </Button>
       </motion.div>
 
       {/* 🔥 ALERTES DE CHANGEMENTS N / N+1 CORRIGÉE SANS LE COMPOSANT ALERT SHADCN 🔥 */}
