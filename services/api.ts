@@ -1,4 +1,4 @@
-const BASE_URL = 'https://adc-bice.vercel.app';
+const BASE_URL = '/api';
 
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const config: RequestInit = {
@@ -7,8 +7,10 @@ export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): 
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    credentials: 'include',
+    // Garde 'include' pour que le navigateur attache bien les cookies !
+    credentials: 'include', 
   };
+  
   console.log(`🚀 [API Request] ${options.method || 'GET'} ${BASE_URL}${endpoint}`);
   if (options.body) {
     try {
