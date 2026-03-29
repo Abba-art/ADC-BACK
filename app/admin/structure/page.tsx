@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchApi } from '@/services/api';
 import { motion, Variants } from 'framer-motion';
-import { Building2, Layers, GraduationCap, School, BookOpen, Loader2, ShieldAlert, Plus, Edit, Trash2, MoreHorizontal, AlertTriangle, CalendarDays, BookPlus } from 'lucide-react';
+import { Building2, Layers, GraduationCap, School, BookOpen, Loader2, Plus, Edit, Trash2, MoreHorizontal, AlertTriangle, CalendarDays, BookPlus } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -159,7 +159,7 @@ export default function StructurePage() {
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-black tracking-tighter text-foreground">Structure Académique</h1>
-        <p className="text-sm font-medium text-muted-foreground mt-1">Configurez l'intégralité du programme académique de l'IUG.</p>
+        <p className="text-sm font-medium text-muted-foreground mt-1">Configurez l&lsquo;intégralité du programme académique de l&lsquo;IUG.</p>
       </motion.div>
 
       <Tabs defaultValue="annees" className="w-full">
@@ -182,11 +182,11 @@ export default function StructurePage() {
               <CardTitle>Années Académiques</CardTitle>
               <Dialog open={openAnnee} onOpenChange={setOpenAnnee}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Ajouter</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[400px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-100">
                   <DialogHeader><DialogTitle>Nouvelle Année</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addAnnee.mutate(anneeForm); }} className="space-y-4 pt-4">
                     <Input placeholder="Ex: 2025-2026" required value={anneeForm.libelle} onChange={e => setAnneeForm({libelle: e.target.value})} className="rounded-xl bg-background/50 h-12" />
-                    <Button type="submit" disabled={addAnnee.isPending} className="w-full rounded-xl font-bold h-12">Créer l'Année</Button>
+                    <Button type="submit" disabled={addAnnee.isPending} className="w-full rounded-xl font-bold h-12">Créer l&apos;Année</Button>
                   </form>
                 </DialogContent>
               </Dialog>
@@ -216,12 +216,12 @@ export default function StructurePage() {
               <CardTitle>Instituts</CardTitle>
               <Dialog open={openInst} onOpenChange={setOpenInst}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Ajouter</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
                   <DialogHeader><DialogTitle>Nouvel Institut</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addInst.mutate(instForm); }} className="space-y-4 pt-4">
                     <Input placeholder="Nom (ex: ISA)" required minLength={3} value={instForm.nom} onChange={e => setInstForm({...instForm, nom: e.target.value})} className="rounded-xl bg-background/50 h-12" />
                     <Input placeholder="Adresse" value={instForm.adresse} onChange={e => setInstForm({...instForm, adresse: e.target.value})} className="rounded-xl bg-background/50 h-12" />
-                    <Button type="submit" disabled={addInst.isPending} className="w-full rounded-xl font-bold h-12 text-md">Créer l'Institut</Button>
+                    <Button type="submit" disabled={addInst.isPending} className="w-full rounded-xl font-bold h-12 text-md">Créer l&lsquo;Institut</Button>
                   </form>
                 </DialogContent>
               </Dialog>
@@ -250,8 +250,8 @@ export default function StructurePage() {
             </CardContent>
           </Card>
           <Dialog open={editInstOpen} onOpenChange={setEditInstOpen}>
-            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
-              <DialogHeader><DialogTitle>Modifier l'Institut</DialogTitle></DialogHeader>
+            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
+              <DialogHeader><DialogTitle>Modifier l&rsquo;Institut</DialogTitle></DialogHeader>
               {editInst && (
                 <form onSubmit={e => { e.preventDefault(); updInst.mutate({ id: editInst.id, payload: { nom: editInst.nom, adresse: editInst.adresse } }); }} className="space-y-4 pt-4">
                   <Input required minLength={3} value={editInst.nom} onChange={e => setEditInst({...editInst, nom: e.target.value})} className="rounded-xl bg-background/50 h-12" />
@@ -270,7 +270,7 @@ export default function StructurePage() {
               <CardTitle>Filières</CardTitle>
               <Dialog open={openFil} onOpenChange={setOpenFil}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Ajouter</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
                   <DialogHeader><DialogTitle>Nouvelle Filière</DialogTitle></DialogHeader>
                   <form onSubmit={handleAddFil} className="space-y-4 pt-4">
                     <div className="space-y-1.5">
@@ -281,7 +281,7 @@ export default function StructurePage() {
                             {filForm.institutId ? institutsReq?.data?.find(i => i.id.toString() === filForm.institutId)?.nom : "Choisir un institut"}
                           </SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{institutsReq?.data?.map(inst => <SelectItem key={inst.id} value={inst.id.toString()}>{inst.nom}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{institutsReq?.data?.map(inst => <SelectItem key={inst.id} value={inst.id.toString()}>{inst.nom}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-1.5">
@@ -321,7 +321,7 @@ export default function StructurePage() {
             </CardContent>
           </Card>
           <Dialog open={editFilOpen} onOpenChange={setEditFilOpen}>
-            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
               <DialogHeader><DialogTitle>Modifier la Filière</DialogTitle></DialogHeader>
               {editFil && (
                 <form onSubmit={handleEditFil} className="space-y-4 pt-4">
@@ -331,7 +331,7 @@ export default function StructurePage() {
                       <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                         <SelectValue placeholder="Choisir un institut">{editFil.institutId ? institutsReq?.data?.find(i => i.id.toString() === editFil.institutId)?.nom : "Sélectionner"}</SelectValue>
                       </SelectTrigger>
-                      <SelectContent className="z-[200]">{institutsReq?.data?.map(inst => <SelectItem key={inst.id} value={inst.id.toString()}>{inst.nom}</SelectItem>)}</SelectContent>
+                      <SelectContent className="z-200">{institutsReq?.data?.map(inst => <SelectItem key={inst.id} value={inst.id.toString()}>{inst.nom}</SelectItem>)}</SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-1.5">
@@ -352,7 +352,7 @@ export default function StructurePage() {
               <CardTitle>Niveaux</CardTitle>
               <Dialog open={openNiv} onOpenChange={setOpenNiv}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Ajouter</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
                   <DialogHeader><DialogTitle>Nouveau Niveau</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addNiv.mutate(nivForm); }} className="space-y-4 pt-4">
                     <Input placeholder="Libellé (ex: HND 1)" required value={nivForm.libelle} onChange={e => setNivForm({libelle: e.target.value})} className="rounded-xl bg-background/50 h-12" />
@@ -385,7 +385,7 @@ export default function StructurePage() {
             </CardContent>
           </Card>
           <Dialog open={editNivOpen} onOpenChange={setEditNivOpen}>
-            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
               <DialogHeader><DialogTitle>Modifier le Niveau</DialogTitle></DialogHeader>
               {editNiv && (
                 <form onSubmit={e => { e.preventDefault(); updNiv.mutate({ id: editNiv.id, payload: { libelle: editNiv.libelle } }); }} className="space-y-4 pt-4">
@@ -404,7 +404,7 @@ export default function StructurePage() {
               <CardTitle>Classes</CardTitle>
               <Dialog open={openCls} onOpenChange={setOpenCls}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Générer</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[600px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-150">
                   <DialogHeader><DialogTitle>Générer une Classe</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addCls.mutate({ code: clsForm.code, filiereId: Number(clsForm.filiereId), niveauId: Number(clsForm.niveauId) }); }} className="space-y-4 pt-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -414,7 +414,7 @@ export default function StructurePage() {
                           <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                             <SelectValue placeholder="Filière">{clsForm.filiereId ? filieresReq?.data?.find(f => f.id.toString() === clsForm.filiereId)?.nom : "Filière"}</SelectValue>
                           </SelectTrigger>
-                          <SelectContent className="z-[200]">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
+                          <SelectContent className="z-200">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
                         </Select>
                       </div>
                       <div className="space-y-1.5">
@@ -423,7 +423,7 @@ export default function StructurePage() {
                           <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                             <SelectValue placeholder="Niveau">{clsForm.niveauId ? niveauxReq?.data?.find(n => n.id.toString() === clsForm.niveauId)?.libelle : "Niveau"}</SelectValue>
                           </SelectTrigger>
-                          <SelectContent className="z-[200]">{niveauxReq?.data?.map(n => <SelectItem key={n.id} value={n.id.toString()}>{n.libelle}</SelectItem>)}</SelectContent>
+                          <SelectContent className="z-200">{niveauxReq?.data?.map(n => <SelectItem key={n.id} value={n.id.toString()}>{n.libelle}</SelectItem>)}</SelectContent>
                         </Select>
                       </div>
                     </div>
@@ -432,14 +432,14 @@ export default function StructurePage() {
                         <label className="text-xs font-bold text-muted-foreground uppercase">Groupe (Optionnel)</label>
                         <Select value={clsForm.groupe} onValueChange={(val: string | null) => { if(val !== null) handleClasseChange('groupe', val) }}>
                           <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full"><SelectValue placeholder="Groupe" /></SelectTrigger>
-                          <SelectContent className="z-[200]">{GROUPES.map(g => <SelectItem key={g.label} value={g.id}>{g.label}</SelectItem>)}</SelectContent>
+                          <SelectContent className="z-200">{GROUPES.map(g => <SelectItem key={g.label} value={g.id}>{g.label}</SelectItem>)}</SelectContent>
                         </Select>
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-xs font-bold text-muted-foreground uppercase">Vacation</label>
                         <Select value={clsForm.shift} onValueChange={(val: string | null) => { if(val) handleClasseChange('shift', val) }}>
                           <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full"><SelectValue placeholder="Vacation" /></SelectTrigger>
-                          <SelectContent className="z-[200]">{SHIFTS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}</SelectContent>
+                          <SelectContent className="z-200">{SHIFTS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}</SelectContent>
                         </Select>
                       </div>
                     </div>
@@ -477,7 +477,7 @@ export default function StructurePage() {
           </Card>
 
           <Dialog open={editClsOpen} onOpenChange={setEditClsOpen}>
-            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
               <DialogHeader><DialogTitle>Modifier la Classe</DialogTitle></DialogHeader>
               {editCls && (
                 <form onSubmit={e => { e.preventDefault(); updCls.mutate({ id: editCls.id, payload: { code: editCls.code, filiereId: Number(editCls.filiereId), niveauId: Number(editCls.niveauId) } }); }} className="space-y-4 pt-4">
@@ -488,7 +488,7 @@ export default function StructurePage() {
                         <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                           <SelectValue placeholder="Filière">{editCls.filiereId ? filieresReq?.data?.find(f => f.id.toString() === editCls.filiereId)?.nom : "Filière"}</SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-1.5">
@@ -497,7 +497,7 @@ export default function StructurePage() {
                         <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                           <SelectValue placeholder="Niveau">{editCls.niveauId ? niveauxReq?.data?.find(n => n.id.toString() === editCls.niveauId)?.libelle : "Niveau"}</SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{niveauxReq?.data?.map(n => <SelectItem key={n.id} value={n.id.toString()}>{n.libelle}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{niveauxReq?.data?.map(n => <SelectItem key={n.id} value={n.id.toString()}>{n.libelle}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
                   </div>
@@ -516,7 +516,7 @@ export default function StructurePage() {
               <CardTitle>Matières</CardTitle>
               <Dialog open={openMat} onOpenChange={setOpenMat}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Ajouter</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[600px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-150">
                   <DialogHeader><DialogTitle>Nouvelle Matière</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addMat.mutate({ code: matForm.code, nom: matForm.nom, credits: Number(matForm.credits), semestre: matForm.semestre, filiereId: Number(matForm.filiereId) }); }} className="space-y-4 pt-4">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -538,7 +538,7 @@ export default function StructurePage() {
                         <label className="text-xs font-bold text-muted-foreground uppercase">Semestre</label>
                         <Select onValueChange={(val: string | null) => { if(val) setMatForm({...matForm, semestre: val}) }}>
                           <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full"><SelectValue placeholder="Semestre" /></SelectTrigger>
-                          <SelectContent className="z-[200]">{SEMESTRES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+                          <SelectContent className="z-200">{SEMESTRES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
                         </Select>
                       </div>
                     </div>
@@ -550,7 +550,7 @@ export default function StructurePage() {
                             {matForm.filiereId ? filieresReq?.data?.find(f => f.id.toString() === matForm.filiereId)?.nom : "Filière de rattachement"}
                           </SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
                     <Button type="submit" disabled={addMat.isPending} className="w-full rounded-xl font-bold h-12 text-md mt-2">Créer la matière</Button>
@@ -583,7 +583,7 @@ export default function StructurePage() {
           </Card>
 
           <Dialog open={editMatOpen} onOpenChange={setEditMatOpen}>
-            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[600px]">
+            <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-150">
               <DialogHeader><DialogTitle className="text-xl font-black">Modifier la Matière</DialogTitle></DialogHeader>
               {editMat && (
                 <form onSubmit={e => { e.preventDefault(); updMat.mutate({ id: editMat.id, payload: { code: editMat.code, nom: editMat.nom, credits: Number(editMat.credits), semestre: editMat.semestre, filiereId: Number(editMat.filiereId) } }); }} className="space-y-5 pt-4">
@@ -608,7 +608,7 @@ export default function StructurePage() {
                         <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                           <SelectValue placeholder="Semestre">{editMat.semestre || "Sélectionner"}</SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{SEMESTRES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{SEMESTRES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
                   </div>
@@ -618,7 +618,7 @@ export default function StructurePage() {
                       <SelectTrigger className="rounded-xl bg-background/50 h-12 w-full">
                         <SelectValue placeholder="Filière">{editMat.filiereId ? filieresReq?.data?.find(f => f.id.toString() === editMat.filiereId.toString())?.nom : "Sélectionner la filière"}</SelectValue>
                       </SelectTrigger>
-                      <SelectContent className="z-[200]">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
+                      <SelectContent className="z-200">{filieresReq?.data?.map(f => <SelectItem key={f.id} value={f.id.toString()}>{f.nom}</SelectItem>)}</SelectContent>
                     </Select>
                   </div>
                   <DialogFooter className="pt-4">
@@ -639,7 +639,7 @@ export default function StructurePage() {
               <CardTitle>Programme de Cours</CardTitle>
               <Dialog open={openCourse} onOpenChange={setOpenCourse}>
                 <DialogTrigger className="inline-flex h-9 items-center justify-center rounded-xl bg-primary px-4 text-sm font-bold text-primary-foreground shadow-lg hover:bg-primary/90 outline-none"><Plus className="w-4 h-4 mr-2" /> Créer un Bloc</DialogTrigger>
-                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-[500px]">
+                <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[95%] sm:max-w-125">
                   <DialogHeader><DialogTitle>Nouveau Bloc de Cours</DialogTitle></DialogHeader>
                   <form onSubmit={e => { e.preventDefault(); addCourse.mutate({ matiereId: Number(courseForm.matiereId), classeId: Number(courseForm.classeId), anneeId: Number(courseForm.anneeId) }); }} className="space-y-5 pt-4">
                     
@@ -651,7 +651,7 @@ export default function StructurePage() {
                             {courseForm.anneeId ? anneesReq?.data?.find(a => a.id.toString() === courseForm.anneeId)?.libelle : "Sélectionnez l'année"}
                           </SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{anneesReq?.data?.map(a => <SelectItem key={a.id} value={a.id.toString()}>{a.libelle}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{anneesReq?.data?.map(a => <SelectItem key={a.id} value={a.id.toString()}>{a.libelle}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
 
@@ -663,7 +663,7 @@ export default function StructurePage() {
                             {courseForm.classeId ? classesReq?.data?.find(c => c.id.toString() === courseForm.classeId)?.code : "Sélectionnez la classe"}
                           </SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{classesReq?.data?.map(c => <SelectItem key={c.id} value={c.id.toString()}>{c.code}</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{classesReq?.data?.map(c => <SelectItem key={c.id} value={c.id.toString()}>{c.code}</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
 
@@ -675,7 +675,7 @@ export default function StructurePage() {
                             {courseForm.matiereId ? matieresReq?.data?.find(m => m.id.toString() === courseForm.matiereId)?.nom : "Sélectionnez la matière"}
                           </SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="z-[200]">{matieresReq?.data?.map(m => <SelectItem key={m.id} value={m.id.toString()}>{m.nom} ({m.code})</SelectItem>)}</SelectContent>
+                        <SelectContent className="z-200">{matieresReq?.data?.map(m => <SelectItem key={m.id} value={m.id.toString()}>{m.nom} ({m.code})</SelectItem>)}</SelectContent>
                       </Select>
                     </div>
 
@@ -707,7 +707,7 @@ export default function StructurePage() {
 
       {/* --- MODALE GLOBALE DE SUPPRESSION --- */}
       <Dialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
-        <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[90%] sm:max-w-[400px]">
+        <DialogContent className="rounded-2xl bg-card/90 backdrop-blur-3xl border-border/40 w-[90%] sm:max-w-100">
           <DialogHeader>
             <DialogTitle className="flex items-center text-destructive font-black text-xl"><AlertTriangle className="mr-2 h-6 w-6" /> Attention</DialogTitle>
             <DialogDescription className="pt-3 text-sm font-medium">Cette action est <span className="font-bold text-foreground">définitive</span>. Êtes-vous sûr de vouloir continuer ?</DialogDescription>

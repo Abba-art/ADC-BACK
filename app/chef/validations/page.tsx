@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchApi } from '@/services/api';
 import { useAuthStore } from '@/store/authStore';
 import { motion, Variants } from 'framer-motion';
-import { ClipboardCheck, ShieldAlert, Check, X, Clock, Loader2, AlertTriangle } from 'lucide-react';
+import { ClipboardCheck, ShieldAlert, Check, X, Clock, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -61,13 +61,14 @@ export default function ValidationsPage() {
   const actifs = actifsReq?.data || [];
 
   // --- MUTATION DE VALIDATION ---
+  // 🔥 CORRECTION DU TYPE `any` EN `ApiResponse<unknown>` 🔥
   const validationMutation = useMutation({
     mutationFn: ({ id, statut }: { id: string, statut: 'VALIDE' | 'REJETE' }) => 
       fetchApi<ApiResponse<unknown>>('/enseignements/valider', { 
         method: 'PATCH', 
         body: JSON.stringify({ enseignementId: id, statut }) 
       }),
-    onSuccess: (res: any) => { 
+    onSuccess: (res: ApiResponse<unknown>) => { 
       toast.success(res.message || 'Action enregistrée avec succès'); 
       queryClient.invalidateQueries({ queryKey: ['enseignements-propositions'] }); 
       queryClient.invalidateQueries({ queryKey: ['enseignements-actifs'] }); 
@@ -88,7 +89,7 @@ export default function ValidationsPage() {
         </div>
         <h1 className="text-2xl font-black text-foreground">Accès Restreint</h1>
         <p className="text-muted-foreground text-center max-w-md">
-          Cette page est réservée à la Direction d'Établissement. En tant que Chef de Département, vos propositions doivent être validées par votre hiérarchie.
+          Cette page est réservée à la Direction d&apos;Établissement. En tant que Chef de Département, vos propositions doivent être validées par votre hiérarchie.
         </p>
       </div>
     );
@@ -108,7 +109,7 @@ export default function ValidationsPage() {
           <TabsList className="bg-card/60 backdrop-blur-2xl border border-border/40 h-14 p-1.5 rounded-2xl shadow-sm w-max sm:w-full justify-start sm:justify-center">
             <TabsTrigger value="attente" className="rounded-xl px-4 py-2 font-bold flex items-center">
               <Clock className="w-4 h-4 mr-2" /> À Valider
-              {propositions.length > 0 && <Badge variant="destructive" className="ml-2 h-5 min-w-[20px] flex items-center justify-center p-0 px-1.5">{propositions.length}</Badge>}
+              {propositions.length > 0 && <Badge variant="destructive" className="ml-2 h-5 min-w-5 flex items-center justify-center p-0 px-1.5">{propositions.length}</Badge>}
             </TabsTrigger>
             <TabsTrigger value="valides" className="rounded-xl px-4 py-2 font-bold"><Check className="w-4 h-4 mr-2" /> Historique Validé</TabsTrigger>
           </TabsList>
@@ -119,7 +120,8 @@ export default function ValidationsPage() {
         {/* ========================================================= */}
         <TabsContent value="attente" className="outline-none">
           <Card className="bg-card/60 backdrop-blur-2xl shadow-xl overflow-hidden border-border/40">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 opacity-80" />
+            {/* 🔥 CORRECTION CLASSE CSS TAILWIND bg-linear-to-r -> bg-gradient-to-r 🔥 */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-orange-500 via-yellow-500 to-orange-500 opacity-80" />
             <CardHeader className="border-b border-border/40 pb-4 pt-6">
               <CardTitle className="flex items-center gap-2">Affectations en attente</CardTitle>
               <CardDescription>Ces propositions ont été faites par les Chefs de Département de vos instituts.</CardDescription>
@@ -182,7 +184,7 @@ export default function ValidationsPage() {
         {/* ========================================================= */}
         <TabsContent value="valides" className="outline-none">
           <Card className="bg-card/60 backdrop-blur-2xl shadow-xl overflow-hidden border-border/40">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary via-secondary to-primary opacity-80" />
             <CardHeader className="border-b border-border/40 pb-4 pt-6">
               <CardTitle>Affectations Actives</CardTitle>
               <CardDescription>Liste des enseignements actuellement validés et en cours.</CardDescription>

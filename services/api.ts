@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://adc-bice.vercel.app';
 
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const config: RequestInit = {

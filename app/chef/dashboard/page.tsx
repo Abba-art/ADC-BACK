@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchApi } from '@/services/api';
 import { useAuthStore } from '@/store/authStore';
 import { motion, Variants } from 'framer-motion';
-import { Users, BookOpen, ShieldAlert, Loader2, CheckCircle, Clock } from 'lucide-react';
+import { Users, BookOpen, Loader2, CheckCircle, Clock } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -114,7 +114,7 @@ export default function ChefDashboardPage() {
       {isChefEtablissement && (
         <motion.div variants={itemVariants} initial="hidden" animate="show">
           <Card className="border-border/40 bg-card/60 backdrop-blur-2xl shadow-xl shadow-black/5 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-yellow-500 opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-orange-500 to-yellow-500 opacity-80" />
             <CardHeader>
               <CardTitle className="text-lg">Propositions en attente de validation</CardTitle>
               <CardDescription>Affectations soumises par les Chefs de Département nécessitant votre accord.</CardDescription>

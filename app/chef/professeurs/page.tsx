@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchApi } from '@/services/api';
 import { motion, Variants } from 'framer-motion';
-import { Search, MoreHorizontal, UserPen, Trash2, ShieldAlert, Plus, Loader2, Building2, CheckCircle, ArchiveX, RefreshCw, Users } from 'lucide-react';
+import { Search, MoreHorizontal, Trash2, ShieldAlert, CheckCircle, ArchiveX, RefreshCw, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -163,7 +163,7 @@ export default function MesProfesseursPage() {
                     <DropdownMenuTrigger className="inline-flex h-8 w-8 items-center justify-center rounded-lg hover:bg-primary/10 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary">
                       <MoreHorizontal className="h-4 w-4" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48 rounded-xl shadow-xl z-[100] p-1.5">
+                    <DropdownMenuContent align="end" className="w-48 rounded-xl shadow-xl z-100 p-1.5">
                       <DropdownMenuGroup>
                         <DropdownMenuLabel className="text-xs uppercase text-muted-foreground tracking-wider px-2">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
@@ -228,18 +228,18 @@ export default function MesProfesseursPage() {
           <TabsList className="bg-card/60 backdrop-blur-2xl border border-border/40 h-14 p-1.5 rounded-2xl shadow-sm w-max sm:w-full justify-start sm:justify-center">
             <TabsTrigger value="actifs" className="rounded-xl px-4 py-2 font-bold flex items-center">
               <CheckCircle className="w-4 h-4 mr-2" /> Professeurs Actifs
-              <Badge variant="secondary" className="ml-2 h-5 min-w-[20px] flex items-center justify-center p-0 px-1.5">{profsActifs.length}</Badge>
+              <Badge variant="secondary" className="ml-2 h-5 min-w-5 flex items-center justify-center p-0 px-1.5">{profsActifs.length}</Badge>
             </TabsTrigger>
             <TabsTrigger value="inactifs" className="rounded-xl px-4 py-2 font-bold flex items-center text-muted-foreground data-[state=active]:text-destructive">
               <ArchiveX className="w-4 h-4 mr-2" /> Corbeille
-              {profsInactifs.length > 0 && <Badge variant="destructive" className="ml-2 h-5 min-w-[20px] flex items-center justify-center p-0 px-1.5">{profsInactifs.length}</Badge>}
+              {profsInactifs.length > 0 && <Badge variant="destructive" className="ml-2 h-5 min-w-5 flex items-center justify-center p-0 px-1.5">{profsInactifs.length}</Badge>}
             </TabsTrigger>
           </TabsList>
         </div>
 
         <TabsContent value="actifs" className="outline-none">
           <Card className="bg-card/60 backdrop-blur-2xl shadow-xl overflow-hidden border-border/40">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-blue-500 to-indigo-500 opacity-80" />
             <CardHeader className="border-b border-border/40 pb-4 pt-6">
               <CardTitle>Disponibilité et Charge Horaire</CardTitle>
               <CardDescription>Vérifiez que les professeurs ne dépassent pas leur quota avant de leur assigner des cours.</CardDescription>
@@ -252,7 +252,7 @@ export default function MesProfesseursPage() {
 
         <TabsContent value="inactifs" className="outline-none">
           <Card className="bg-card/60 backdrop-blur-2xl shadow-xl overflow-hidden border-border/40">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-destructive/80 to-red-600/80 opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-destructive/80 to-red-600/80 opacity-80" />
             <CardHeader className="border-b border-border/40 pb-4 pt-6">
               <CardTitle className="text-destructive">Comptes Inactifs</CardTitle>
               <CardDescription>Historique des enseignants ayant été retirés du système.</CardDescription>

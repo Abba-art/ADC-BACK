@@ -94,7 +94,7 @@ export default function EnseignementsPage() {
         {/* ONGLET: PROPOSITIONS EN ATTENTE */}
         <TabsContent value="propositions" className="outline-none">
           <Card className="bg-card/60 backdrop-blur-2xl shadow-xl overflow-hidden border-border/40">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 opacity-80" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-orange-500 via-yellow-500 to-orange-500 opacity-80" />
             <CardHeader className="border-b border-border/40 pb-4 pt-6">
               <CardTitle className="flex items-center gap-2">Propositions des Chefs de Département</CardTitle>
               <CardDescription>Les cours ci-dessous ont été assignés, mais nécessitent votre validation définitive.</CardDescription>
