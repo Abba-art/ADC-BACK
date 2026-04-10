@@ -7,17 +7,24 @@ export interface User {
   nom: string;
   prenom: string;
   email: string;
+  // Gère les deux formats : { libelle: 'ADMIN' } (Prisma) ou 'ADMIN' (String simple)
   role: UserRole | { libelle: UserRole };
   statut?: {
+    id: number;
     libelle: string;
     quotaHeureMax: number;
     quotaPeriode: 'SEMESTRE' | 'ANNEE';
   };
-  instituts?: { id: number; nom: string }[];
+  instituts?: { 
+    id: number; 
+    nom: string; 
+    adresse?: string | null 
+  }[];
 }
 
 export interface ApiResponse<T> {
   success: boolean;
   message?: string;
   data: T;
+  count?: number; // Utile pour les listes
 }

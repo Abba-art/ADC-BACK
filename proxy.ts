@@ -5,25 +5,20 @@ import { jwtVerify } from 'jose';
 const SECRET = process.env.JWT_SECRET || 'secret_par_defaut_a_changer';
 const secretKey = new TextEncoder().encode(SECRET);
 
-interface JwtPayloadRole {
-  libelle?: string;
-  [key: string]: unknown;
-}
-
+// Typage strict pour le contenu du Token JWT
 interface CustomJwtPayload {
-  role?: string | JwtPayloadRole;
+  role?: string | { libelle?: string };
   user?: {
-    role?: string | JwtPayloadRole;
+    role?: string | { libelle?: string };
   };
   [key: string]: unknown;
 }
 
-export default async function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
   const { pathname } = request.nextUrl;
 
-  // 🔥 L'ANTIDOTE : La route "Tue-Cookie"
-  // Si on passe par /logout, le serveur détruit le cookie HttpOnly
+  // Route de déconnexion "Tue-Cookie"
   if (pathname === '/logout') {
     const response = NextResponse.redirect(new URL('/auth/login', request.url));
     response.cookies.delete('token');
@@ -41,6 +36,7 @@ export default async function proxy(request: NextRequest) {
 
   try {
     const { payload } = await jwtVerify(token, secretKey);
+    // Utilisation de l'interface au lieu de "any"
     const typedPayload = payload as CustomJwtPayload;
     
     const userData = typedPayload.user || typedPayload;
@@ -48,27 +44,35 @@ export default async function proxy(request: NextRequest) {
     
     let userRole = '';
     if (typeof rawRole === 'object' && rawRole !== null && 'libelle' in rawRole) {
-        userRole = String(rawRole.libelle) || '';
+        userRole = String(rawRole.libelle);
     } else if (typeof rawRole === 'string') {
         userRole = rawRole;
     }
-    
     userRole = userRole.toUpperCase().trim();
 
+    // Redirection automatique si on est déjà connecté et qu'on va sur /login
     if (isAuthPage) {
-      return NextResponse.redirect(new URL('/', request.url));
+      if (userRole === 'ADMIN') return NextResponse.redirect(new URL('/admin/dashboard', request.url));
+      if (userRole === 'CHEF_DEPARTEMENT' || userRole === 'CHEF_ETABLISSEMENT') return NextResponse.redirect(new URL('/chef/dashboard', request.url));
+      return NextResponse.redirect(new URL('/professeur/dashboard', request.url));
     }
 
     const isAdminRoute = pathname.startsWith('/admin');
     const isChefRoute = pathname.startsWith('/chef');
     const isProfRoute = pathname.startsWith('/professeur');
 
+    // L'Admin a un "Passe-Partout"
+    if (userRole === 'ADMIN') {
+      return NextResponse.next();
+    }
+
+    // Sécurités pour les autres rôles
     if (isAdminRoute && userRole !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     if (isChefRoute && userRole !== 'CHEF_DEPARTEMENT' && userRole !== 'CHEF_ETABLISSEMENT') {
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     if (pathname.startsWith('/chef/validations') && userRole !== 'CHEF_ETABLISSEMENT') {
@@ -76,7 +80,7 @@ export default async function proxy(request: NextRequest) {
     }
 
     if (isProfRoute && userRole !== 'PROFESSEUR') {
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     return NextResponse.next();
